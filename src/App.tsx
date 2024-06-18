@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-    <div className="container">
+    <div className="container mt-4">
     <Aluno/>
    
      </div>

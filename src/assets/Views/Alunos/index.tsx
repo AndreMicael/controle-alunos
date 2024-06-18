@@ -1,3 +1,5 @@
+import "./alunos.css"
+
 const Aluno = () => {
     return (
       <>
@@ -30,7 +32,7 @@ const Aluno = () => {
   
                   <div className="row mt-3">
                     <div className="col">
-                      <button className="btn btn-outline-success">
+                      <button className="btn btn-outline-success btn-form">
                         Adicionar
                       </button>
                     </div>
@@ -41,30 +43,43 @@ const Aluno = () => {
             <table className="table table-striped table-bordered mt-3    ">
               <thead>
                 <tr>
-                  <th>Código</th>
+                  <th width="100" className="text-center">Código</th>
                   <th>Nome</th>
-                  <th>Gênero</th>
-                  <th>Série</th>
+                  <th  width="100" >Gênero</th>
+                  <th  width="100" >Série</th>
+                  <th width="200" className="text-center">Ações</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>01</td>
+                  <td  className="text-center">01</td>
                   <td>Carlos Eduardo</td>
                   <td>Masculino</td>
                   <td>6ªB</td>
+                  <td className="text-center btn-table">
+                    <button  className="btn btn-outline-warning">Editar</button>
+                    <button className="btn btn-outline-danger">Apagar</button>
+                  </td>
                 </tr>
                 <tr>
-                  <td>02</td>
+                  <td  className="text-center">02</td>
                   <td>Daniel Souza</td>
                   <td>Masculino</td>
                   <td>5ªA</td>
+                  <td className="text-center btn-table">
+                    <button className="btn btn-outline-warning">Editar</button>
+                    <button className="btn btn-outline-danger">Apagar</button>
+                  </td>
                 </tr>
                 <tr>
-                  <td>03</td>
+                  <td  className="text-center">03</td>
                   <td>Karina Silva</td>
                   <td>Feminino</td>
                   <td>7ªA</td>
+                  <td className="text-center btn-table">
+                    <button className="btn btn-outline-warning">Editar</button>
+                    <button className="btn btn-outline-danger">Apagar</button>
+                  </td>
                 </tr>
               </tbody>
             </table>

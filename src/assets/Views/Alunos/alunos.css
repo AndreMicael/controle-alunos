@@ -1,0 +1,15 @@
+.btn {
+    width: 80px;
+}
+
+.btn-table{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-form{
+    width: 100px;
+}
