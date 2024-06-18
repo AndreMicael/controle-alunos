@@ -1,6 +1,34 @@
 import "./alunos.css"
 
+import { useState } from "react";
+
 const Aluno = () => {
+
+  const [nome,setNome] = useState('');
+  const [genero,setGenero] = useState('');
+  const [serie,setSerie] = useState('');
+  const [nomeError, setNomeError] = useState('');
+  const [generoError, setGeneroError] = useState('');
+  const [serieError, setSerieError] = useState('');
+
+  const handleForm = (e) => {
+    e.preventDefault();
+
+    if (nome === "") {
+      setNomeError('*Nome Obrigatório')
+    } else if (genero === "" || genero === "Selecione o Gênero") {
+      setGeneroError("*Gênero Obrigatório")
+    } else if (serie === ""){
+      setSerieError("*Série Obrigatória")
+    } else {
+      setNomeError('')
+      setGeneroError('')
+      setSerieError('')
+    } 
+    
+  }
+  
+
     return (
       <>
         <div className="card">
@@ -9,30 +37,36 @@ const Aluno = () => {
           </div>
           <div className="card-body">
             <div className="container">
-              <form>
+              <form onSubmit={handleForm}>
                 <div className="row">
                   <div className="col">
                     <label htmlFor="nome">Nome</label>
-                    <input type="text" id="nome" className="form-control" />
+                    <input type="text" id="nome" value={nome} onChange={ e => setNome(e.target.value) } className="form-control" />
+                    {!nome && <div className="text-danger">{nomeError}</div>}
                   </div>
   
                   <div className="col-2">
                     {" "}
                     <label htmlFor="genero">Genero</label>
-                    <select className="form-control" id="genero">
-                      <option>Masculino</option>
-                      <option>Feminino</option>
+                    <select className="form-control" id="genero" value={genero}
+                    onChange={e=> setGenero(e.target.value)}
+                    > <option value="x"  selected>Selecione o Gênero</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Feminino">Feminino</option>
                     </select>
+                    {!genero && <div className="text-danger">{generoError}</div>}
                   </div>
   
                   <div className="col-2">
                     <label htmlFor="serie">Série</label>
-                    <input type="text" id="serie" className="form-control" />
+                    <input type="text" id="serie" className="form-control" value={serie} 
+                    onChange={e => setSerie(e.target.value)} />
+                    {!serie && <div className="text-danger">{serieError}</div>}
                   </div>
   
                   <div className="row mt-3">
                     <div className="col">
-                      <button className="btn btn-outline-success btn-form">
+                      <button type="submit" className="btn btn-outline-success btn-form">
                         Adicionar
                       </button>
                     </div>
@@ -87,7 +121,7 @@ const Aluno = () => {
         </div>
       </>
     );
-  };
+  }
   
   export default Aluno;
   
