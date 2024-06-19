@@ -1,4 +1,5 @@
 import "./alunos.css"
+import { toast } from 'react-toastify';
 
 import { useState } from "react";
 
@@ -40,6 +41,7 @@ const Aluno = () => {
     if (valid) {
       const newAluno = { id: alunos.length + 1, nome, genero, serie };
       setAlunos([...alunos, newAluno]);
+      toast("Novo aluno cadastrado.")
     
       setNome('');
       setGenero('');
@@ -52,6 +54,7 @@ const Aluno = () => {
     const confirmDelete = window.confirm("Tem certeza que deseja deletar este aluno?");
     if (confirmDelete) {
       setAlunos(alunos.filter(aluno => aluno.id !== id));
+      toast("Aluno Deletado")
     }
   };
   
