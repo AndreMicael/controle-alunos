@@ -10,24 +10,53 @@ const Aluno = () => {
   const [nomeError, setNomeError] = useState('');
   const [generoError, setGeneroError] = useState('');
   const [serieError, setSerieError] = useState('');
+  const [alunos, setAlunos] = useState([]);
+ 
 
   const handleForm = (e) => {
     e.preventDefault();
+    let valid = true;
 
     if (nome === "") {
-      setNomeError('*Nome Obrigatório')
-    } else if (genero === "" || genero === "Selecione o Gênero") {
-      setGeneroError("*Gênero Obrigatório")
-    } else if (serie === ""){
-      setSerieError("*Série Obrigatória")
+      setNomeError('*Nome Obrigatório');
+      valid = false;
     } else {
-      setNomeError('')
-      setGeneroError('')
-      setSerieError('')
-    } 
+      setNomeError('');
+    }
+
+    if (genero === "" || genero === "Selecione o Gênero") {
+      setGeneroError("*Gênero Obrigatório");
+      valid = false;
+    } else {
+      setGeneroError('');
+    }
+
+    if (serie === "") {
+      setSerieError("*Série Obrigatória");
+      valid = false;
+    } else {
+      setSerieError('');
+    }
+    if (valid) {
+      const newAluno = { id: alunos.length + 1, nome, genero, serie };
+      setAlunos([...alunos, newAluno]);
     
-  }
+      setNome('');
+      setGenero('');
+      setSerie('');
+    }
+  };
+    
+
+  const deleteAluno = (id) => {
+    const confirmDelete = window.confirm("Tem certeza que deseja deletar este aluno?");
+    if (confirmDelete) {
+      setAlunos(alunos.filter(aluno => aluno.id !== id));
+    }
+  };
   
+  
+
 
     return (
       <>
@@ -37,36 +66,36 @@ const Aluno = () => {
           </div>
           <div className="card-body">
             <div className="container">
-              <form onSubmit={handleForm}>
+              <form>
                 <div className="row">
                   <div className="col">
                     <label htmlFor="nome">Nome</label>
                     <input type="text" id="nome" value={nome} onChange={ e => setNome(e.target.value) } className="form-control" />
-                    {!nome && <div className="text-danger">{nomeError}</div>}
+                    {!nome && <div className="text-danger text-sm">{nomeError}</div>}
                   </div>
   
                   <div className="col-2">
                     {" "}
                     <label htmlFor="genero">Genero</label>
-                    <select className="form-control" id="genero" value={genero}
+                    <select className="form-control" id="genero"
                     onChange={e=> setGenero(e.target.value)}
                     > <option value="x"  selected>Selecione o Gênero</option>
                       <option value="Masculino">Masculino</option>
                       <option value="Feminino">Feminino</option>
                     </select>
-                    {!genero && <div className="text-danger">{generoError}</div>}
+                    {!genero && <div className="text-danger text-sm">{generoError}</div>}
                   </div>
   
                   <div className="col-2">
                     <label htmlFor="serie">Série</label>
                     <input type="text" id="serie" className="form-control" value={serie} 
                     onChange={e => setSerie(e.target.value)} />
-                    {!serie && <div className="text-danger">{serieError}</div>}
+                    {!serie && <div className="text-danger text-sm">{serieError}</div>}
                   </div>
   
                   <div className="row mt-3">
                     <div className="col">
-                      <button type="submit" className="btn btn-outline-success btn-form">
+                      <button onClick={handleForm} className="btn btn-outline-success btn-form">
                         Adicionar
                       </button>
                     </div>
@@ -85,36 +114,21 @@ const Aluno = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td  className="text-center">01</td>
-                  <td>Carlos Eduardo</td>
-                  <td>Masculino</td>
-                  <td>6ªB</td>
-                  <td className="text-center btn-table">
-                    <button  className="btn btn-outline-warning">Editar</button>
-                    <button className="btn btn-outline-danger">Apagar</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td  className="text-center">02</td>
-                  <td>Daniel Souza</td>
-                  <td>Masculino</td>
-                  <td>5ªA</td>
+              {alunos.map(aluno => (
+                <tr key={aluno.id}>
+                  <td className="text-center">{aluno.id}</td>
+                  <td>{aluno.nome}</td>
+                  <td>{aluno.genero}</td>
+                  <td>{aluno.serie}</td>
                   <td className="text-center btn-table">
                     <button className="btn btn-outline-warning">Editar</button>
-                    <button className="btn btn-outline-danger">Apagar</button>
+                   <button
+                      className="btn btn-outline-danger"
+                      onClick={() => deleteAluno(aluno.id)}
+                    >Deletar </button>
                   </td>
                 </tr>
-                <tr>
-                  <td  className="text-center">03</td>
-                  <td>Karina Silva</td>
-                  <td>Feminino</td>
-                  <td>7ªA</td>
-                  <td className="text-center btn-table">
-                    <button className="btn btn-outline-warning">Editar</button>
-                    <button className="btn btn-outline-danger">Apagar</button>
-                  </td>
-                </tr>
+              ))}
               </tbody>
             </table>
           </div>
